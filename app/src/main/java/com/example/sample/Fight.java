@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 public class Fight extends AppCompatActivity implements View.OnClickListener {
@@ -20,6 +22,10 @@ public class Fight extends AppCompatActivity implements View.OnClickListener {
     int winNum;
     int loseNum;
     int i;
+    int j;
+    int fightNum;
+    int aikoNum;
+    String[][] history = new String[1000][5];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +44,22 @@ public class Fight extends AppCompatActivity implements View.OnClickListener {
         Intent intent = getIntent();
         winNum = intent.getIntExtra("WIN",0);
         loseNum = intent.getIntExtra("LOSE",0);
+        fightNum = intent.getIntExtra("FIGHT",0);
+        for (int i=0; i<fightNum; i++){
+            for(int j=0; j<5; j++) {
+                history[i][j] = intent.getStringExtra(i + " " + j);
+            }j=0;
+        }i=0;
     }
 
     public void onClick(View view) {
         Random random = new Random();
         hideEnemy();
         int n = random.nextInt(3);
-        if (n==0) {
+        if (n == 0) {
             findViewById(R.id.enemyRockView).setVisibility(View.VISIBLE);
             enemy = "rock";
-        } else if (n==1) {
+        } else if (n == 1) {
             findViewById(R.id.enemyScissorView).setVisibility(View.VISIBLE);
             enemy = "scissor";
         } else {
@@ -70,6 +82,12 @@ public class Fight extends AppCompatActivity implements View.OnClickListener {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("WIN", winNum);
         intent.putExtra("LOSE", loseNum);
+        intent.putExtra("FIGHT",fightNum);
+        for (int i=0; i<fightNum; i++) {
+            for (int j = 0; j < 5; j++) {
+                intent.putExtra(i + " " + j, history[i][j]);
+            }j=0;
+        }i=0;
         startActivity(intent);
     }
 
@@ -86,9 +104,14 @@ public class Fight extends AppCompatActivity implements View.OnClickListener {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("WIN", winNum);
         intent.putExtra("LOSE", loseNum);
+        intent.putExtra("FIGHT",fightNum);
+        for (int i=0; i<fightNum; i++) {
+            for (int j = 0; j < 5; j++) {
+                intent.putExtra(i + " " + j, history[i][j]);
+            }j=0;
+        }i=0;
         startActivity(intent);
     }
-
 
     public void hideEnemy(){
         findViewById(R.id.enemyRockView).setVisibility(View.INVISIBLE);
@@ -115,20 +138,35 @@ public class Fight extends AppCompatActivity implements View.OnClickListener {
 
     public void tie(){
         ((TextView)findViewById(R.id.text1)).setText("あいこで～");
+        aikoNum++;
     }
     public void win(){
         ((TextView)findViewById(R.id.text1)).setText("勝利！！");
         hideMe();
         apperMe();
         findViewById(R.id.restart).setVisibility(View.VISIBLE);
+        history[fightNum][0]=String.valueOf(fightNum+1);
+        history[fightNum][1]=getnow();
+        history[fightNum][2]="勝敗：勝利";
+        history[fightNum][3]="自分："+me+"  相手"+enemy;
+        history[fightNum][4]="あいこ："+aikoNum+"回";
         winNum++;
+        fightNum++;
+        aikoNum=0;
     }
     public void lose(){
         ((TextView)findViewById(R.id.text1)).setText("敗北！！");
         hideMe();
         apperMe();
         findViewById(R.id.restart).setVisibility(View.VISIBLE);
+        history[fightNum][0]=String.valueOf(fightNum+1);
+        history[fightNum][1]=getnow();
+        history[fightNum][2]="勝敗：敗北";
+        history[fightNum][3]="自分："+me+"  相手"+enemy;
+        history[fightNum][4]="あいこ："+aikoNum+"回";
         loseNum++;
+        fightNum++;
+        aikoNum=0;
     }
     public void judge(){
         if(me==enemy){
@@ -140,6 +178,9 @@ public class Fight extends AppCompatActivity implements View.OnClickListener {
         else
             lose();
     }
-
-
+    private String getnow() {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日HH時mm分ss秒");
+        return sdf.format(date);
+    }
 }
