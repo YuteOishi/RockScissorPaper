@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF9C4"
+    tools:context=".Fight">
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="  最初はグー！　\n　じゃんけん！  "
+        android:textSize="44sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <ImageView
+        android:id="@+id/enemyScissorView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/enemyscissor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text1"
+        app:layout_constraintBottom_toTopOf="@+id/paperView"
+        app:layout_constraintVertical_bias="0.2"/>
+
+    <ImageView
+        android:id="@+id/enemyRockView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/enemyrock"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text1"
+        app:layout_constraintBottom_toTopOf="@+id/paperView"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <ImageView
+        android:id="@+id/enemyPaperView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/enemypaper"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text1"
+        app:layout_constraintBottom_toTopOf="@+id/paperView"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <ImageView
+        android:id="@+id/scissorView"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:src="@drawable/scissor"
+        android:onClick="onScissor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/paperView"
+        app:layout_constraintTop_toBottomOf="@+id/text1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.6" />
+
+    <ImageView
+        android:id="@+id/paperView"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:src="@drawable/paper"
+        android:onClick="onPaper"
+        app:layout_constraintEnd_toStartOf="@+id/scissorView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/rockView"
+        app:layout_constraintTop_toBottomOf="@+id/text1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.6"/>
+
+    <ImageView
+        android:id="@+id/rockView"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:src="@drawable/rock"
+        android:onClick="onRock"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toStartOf="@+id/paperView"
+        app:layout_constraintTop_toBottomOf="@+id/text1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.6" />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/partsdesign1"
+        android:gravity="center"
+        android:onClick="onBack"
+        android:text="戻る"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.9" />
+
+    <Button
+        android:id="@+id/restart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/partsdesign1"
+        android:gravity="center"
+        android:onClick="onRestart"
+        android:text="もう一度"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
