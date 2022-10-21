@@ -17,8 +17,9 @@ public class Fight extends AppCompatActivity implements View.OnClickListener {
     String me;
     String enemy;
     View view;
-    int winNum = 0;
-    int loseNum = 0;
+    int winNum;
+    int loseNum;
+    int i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,10 @@ public class Fight extends AppCompatActivity implements View.OnClickListener {
         findViewById(R.id.enemyScissorView).setVisibility(View.INVISIBLE);
         findViewById(R.id.enemyPaperView).setVisibility(View.INVISIBLE);
         findViewById(R.id.restart).setVisibility(View.INVISIBLE);
+
+        Intent intent = getIntent();
+        winNum = intent.getIntExtra("WIN",0);
+        loseNum = intent.getIntExtra("LOSE",0);
     }
 
     public void onClick(View view) {
@@ -61,11 +66,19 @@ public class Fight extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("WIN", winNum);
+        intent.putExtra("LOSE", loseNum);
+        startActivity(intent);
+    }
+
     public void onRestart(View view) {
         hideEnemy();
         apperMeAll();
         findViewById(meId).setOnClickListener(this);
         ((TextView)findViewById(R.id.text1)).setText("  最初はグー！　\n　じゃんけん！  ");
+
         findViewById(R.id.restart).setVisibility(View.INVISIBLE);
     }
 
@@ -75,6 +88,7 @@ public class Fight extends AppCompatActivity implements View.OnClickListener {
         intent.putExtra("LOSE", loseNum);
         startActivity(intent);
     }
+
 
     public void hideEnemy(){
         findViewById(R.id.enemyRockView).setVisibility(View.INVISIBLE);
