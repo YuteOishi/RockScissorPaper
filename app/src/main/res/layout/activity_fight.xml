@@ -19,7 +19,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="0.2"
+        />
 
     <ImageView
         android:id="@+id/enemyScissorView"
@@ -52,7 +53,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text1"
         app:layout_constraintBottom_toTopOf="@+id/paperView"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="0.2"
+        />
 
     <ImageView
         android:id="@+id/scissorView"
@@ -108,7 +110,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.95"
-        app:layout_constraintHorizontal_bias="0.9" />
+        app:layout_constraintHorizontal_bias="0.9"
+        />
 
     <Button
         android:id="@+id/restart"

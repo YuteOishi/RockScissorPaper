@@ -36,8 +36,8 @@ public class History extends AppCompatActivity {
         setContentView(R.layout.activity_history);
         layout = findViewById(R.id.historyLinear);
         Intent intent = getIntent();
-        winNum = intent.getIntExtra("WIN",0);
-        loseNum = intent.getIntExtra("LOSE",0);
+        winNum = intent.getIntExtra("WIN", 0);
+        loseNum = intent.getIntExtra("LOSE", 0);
         fightNum = intent.getIntExtra("FIGHT", 0);
         for (int i = 0; i < fightNum; i++) {
             for (int j = 0; j < 5; j++) {
@@ -47,49 +47,30 @@ public class History extends AppCompatActivity {
         }
         i = 0;
 
-
-        for (int i=0; i<fightNum; i++){
-        for (int j = 0; j < 5; j++) {
-            View hisview = getLayoutInflater().inflate(R.layout.his1, null);
-            layout.addView(hisview);
-            textNum++;
-            TextView text = (TextView) findViewById(R.id.text);
-            switch (j) {
-                case 0:
-                    text.setTextSize(40);
-                    text.setText("第" + history[i][0] + "戦目");
-                    textColor(text, i);
-                    break;
-                case 1:
-                    text.setTextSize(25);
-                    text.setText(history[i][1]);
-                    textColor(text, i);
-                    break;
-                case 2:
-                    text.setText(history[i][2]);
-                    textColor(text, i);
-                    break;
-                case 3:
-                    text.setText(history[i][3]);
-                    textColor(text, i);
-                    break;
-                case 4:
-                    text.setText(history[i][4]);
-                    textColor(text, i);
-                    break;
+        for (int i = 0; i < fightNum; i++) {
+            for (int j = 0; j < 5; j++) {
+                View hisview = getLayoutInflater().inflate(R.layout.his1, null);
+                layout.addView(hisview);
+                TextView text = (TextView) findViewById(R.id.text);
+                textNum++;
+                writeHistory(text, i, j);
+                textColor(text, history[i][2]);
+                ((TextView) findViewById(R.id.text)).setId(R.id.text + textNum);
             }
-            ((TextView) findViewById(R.id.text)).setId(R.id.text + textNum);
-        }
         }
     }
 
-    public void textColor(TextView text, int i){
-        if(i==0 || i%2==0) {
-        text.setBackgroundColor(Color.rgb(100, 230, 200));
+    public void writeHistory(TextView text, int i, int j){
+        text.setText(history[i][j]);
     }
-    else {
-        text.setBackgroundColor(Color.rgb(230, 180, 180));
-    }
+
+    public void textColor(TextView text, String winJudge){
+        if(winJudge.equals("勝敗：勝利")){
+            text.setBackgroundColor(Color.rgb(230, 180, 180));
+        }
+        else{
+            text.setBackgroundColor(Color.rgb(100, 230, 200));
+        }
     }
 
     public void onBack(View view) {

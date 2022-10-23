@@ -39,30 +39,13 @@ public class MainActivity extends AppCompatActivity {
         }i=0;
     }
 
+
     public void onStart(View view) {
-        Intent intent = new Intent(this, Fight.class);
-        intent.putExtra("WIN", winNum);
-        intent.putExtra("LOSE", loseNum);
-        intent.putExtra("FIGHT",fightNum);
-        for (int i=0; i<fightNum; i++) {
-            for (int j = 0; j < 5; j++) {
-                intent.putExtra(i + " " + j, history[i][j]);
-            }j=0;
-        }i=0;
-        startActivity(intent);
+        changeActivityWithHistory(Fight.class);
     }
 
     public void onHistory(View view) {
-        Intent intent = new Intent(this, History.class);
-        intent.putExtra("WIN", winNum);
-        intent.putExtra("LOSE", loseNum);
-        intent.putExtra("FIGHT",fightNum);
-        for (int i=0; i<fightNum; i++) {
-            for (int j = 0; j < 5; j++) {
-                intent.putExtra(i + " " + j, history[i][j]);
-            }j=0;
-        }i=0;
-        startActivity(intent);
+        changeActivityWithHistory(History.class);
     }
 
     public void onReset(View view) {
@@ -78,7 +61,24 @@ public class MainActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.loseCount)).setText(""+loseNum);
     }
 
+    public void changeActivityWithHistory(Class intentClass){
+        Intent intent = new Intent(this, intentClass);
+        intent.putExtra("WIN", winNum);
+        intent.putExtra("LOSE", loseNum);
+        intent.putExtra("FIGHT",fightNum);
+        for (int i=0; i<fightNum; i++) {
+            for (int j = 0; j < 5; j++) {
+                intent.putExtra(i + " " + j, history[i][j]);
+            }j=0;
+        }i=0;
+        startActivity(intent);
+    }
+
     public void onFin(View view){
+        moveTaskToBack (true);
+    }
+
+    public void onBackPressed() {
         moveTaskToBack (true);
     }
 
