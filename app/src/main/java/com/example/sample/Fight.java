@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.Random;
 
 public class Fight extends AppCompatActivity implements View.OnClickListener {
-    int i,j,meId,winNum,loseNum,fightNum,tieNum;
+    int i,j,meId,winNum,loseNum,fightNum,tieNum,tieMax,winMax,loseMax,winConsecutive,loseConsecutive,tieConsecutive;
     String me,enemy,winLoseText;
     String[][] history = new String[1000][5];
     boolean winLose;
@@ -38,6 +38,12 @@ public class Fight extends AppCompatActivity implements View.OnClickListener {
         winNum = intent.getIntExtra("WIN",0);
         loseNum = intent.getIntExtra("LOSE",0);
         fightNum = intent.getIntExtra("FIGHT",0);
+        winMax = intent.getIntExtra("WINMAX",0);
+        loseMax = intent.getIntExtra("LOSEMAX",0);
+        tieMax = intent.getIntExtra("TIEMAX",0);
+        winConsecutive = intent.getIntExtra("WINCONSECUTIVE",0);
+        loseConsecutive = intent.getIntExtra("LOSECONSECUTIVE",0);
+        tieConsecutive = intent.getIntExtra("TIECONSECUTIVE",0);
         for (int i=0; i<fightNum; i++){
             for(int j=0; j<5; j++) {
                 history[i][j] = intent.getStringExtra(i + " " + j);
@@ -89,16 +95,34 @@ public class Fight extends AppCompatActivity implements View.OnClickListener {
     public void tie(){
         ((TextView)findViewById(R.id.text1)).setText("あいこで～");
         tieNum++;
+        tieConsecutive++;
+        if(tieMax<=tieConsecutive){
+            tieMax = tieConsecutive;
+        }
     }
     //勝ち負け処理, winLoseがtrueで勝ち、falseで負け
     public void winLose(Boolean winLose){
         if(winLose==true) {
             winLoseText = "勝利";
             winNum++;
+            loseConsecutive = 0;
+            tieConsecutive = 0;
+            winConsecutive++;
+            if(winMax<=winConsecutive){
+                winMax = winNum;
+            }
+
+
         }
         else if(winLose==false){
             winLoseText = "敗北";
             loseNum++;
+            winConsecutive = 0;
+            tieConsecutive = 0;
+            loseConsecutive++;
+            if(loseMax<=loseConsecutive){
+                loseMax = loseConsecutive;
+            }
         }
         //戦績をhistory配列にセット
         ((TextView)findViewById(R.id.text1)).setText(winLoseText+"！！");
@@ -135,6 +159,12 @@ public class Fight extends AppCompatActivity implements View.OnClickListener {
         intent.putExtra("WIN", winNum);
         intent.putExtra("LOSE", loseNum);
         intent.putExtra("FIGHT",fightNum);
+        intent.putExtra("WINMAX",winMax);
+        intent.putExtra("LOSEMAX",loseMax);
+        intent.putExtra("TIEMAX",tieMax);
+        intent.putExtra("WINCONSECUTIVE",winConsecutive);
+        intent.putExtra("LOSECONSECUTIVE",loseConsecutive);
+        intent.putExtra("TIECONSECUTIVE",tieConsecutive);
         for (int i=0; i<fightNum; i++) {
             for (int j = 0; j < 5; j++) {
                 intent.putExtra(i + " " + j, history[i][j]);

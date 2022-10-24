@@ -47,7 +47,7 @@
         android:background="@drawable/partsdesign1"
         android:gravity="center"
         android:onClick="onHistory"
-        android:text="戦績"
+        android:text="詳細戦績"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/loseCount"
         app:layout_constraintStart_toEndOf="@+id/loseCount"
