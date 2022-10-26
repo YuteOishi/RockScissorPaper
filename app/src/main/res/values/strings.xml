@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">sample</string>
+    <string-array name="color">
+        <item>黄色</item>
+        <item>赤</item>
+        <item>青</item>
+        <item>灰色</item>
+    </string-array>
+    <string-array name="color_values">
+        <item>yellow</item>
+        <item>red</item>
+        <item>blue</item>
+        <item>gray</item>
+    </string-array>
 </resources>

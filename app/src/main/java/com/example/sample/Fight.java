@@ -2,7 +2,9 @@ package com.example.sample;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,7 +15,7 @@ import java.util.Date;
 import java.util.Random;
 
 public class Fight extends AppCompatActivity implements View.OnClickListener {
-    int meId,tieNum;
+    int meId,tieNum,i,j;
     String me,enemy,winLoseText;
     private GlobalArg global;
 
@@ -118,8 +120,9 @@ public class Fight extends AppCompatActivity implements View.OnClickListener {
         global.setHistory("あいこ："+tieNum+"回",global.getFightNum(),4);
         tieNum=0;
         global.setFightNum(global.getFightNum()+1);
+        saveHistory();
     }
-    //勝敗後にもう一度遊ぶ
+
     public void onRestart(View view) {
         hideEnemy();
         apperMeAll();
@@ -162,6 +165,27 @@ public class Fight extends AppCompatActivity implements View.OnClickListener {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日HH時mm分ss秒");
         return sdf.format(date);
+    }
+    public void saveHistory(){
+        SharedPreferences sharedPreferences = getSharedPreferences("DATA", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("WIN_NUM",global.getWinNum());
+        editor.putInt("LOSE_NUM",global.getLoseNum());
+        editor.putInt("FIGHT_NUM",global.getFightNum());
+        editor.putInt("WIN_MAX",global.getWinMax());
+        editor.putInt("LOSE_MAX",global.getLoseMax());
+        editor.putInt("TIE_MAX",global.getTieMax());
+        editor.putInt("WIN_CONSECUTIVE",global.getWinConsecutive());
+        editor.putInt("LOSE_CONSECUTIVE",global.getLoseConsecutive());
+        editor.putInt("TIE_CONSECUTIVE",global.getTieConsecutive());
+        for (int i = 0; i < global.getFightNum(); i++) {
+            for (int j = 0; j < 5; j++) {
+                editor.putString("HISTORY"+ i + j,global.getHistory(i,j));
+            }
+            j = 0;
+        }
+        i = 0;
+        editor.apply();
     }
 
 }
